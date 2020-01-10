@@ -10,6 +10,8 @@ import Layout from "../constants/Layout";
 
 export default class SettingsScreen extends React.Component {
 
+    
+
     render() {
         return (
             <ScrollView style={styles.mainContainer}>

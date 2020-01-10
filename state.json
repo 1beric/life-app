@@ -1,0 +1,59 @@
+{
+    "state": {
+        "budget" : {
+            "balance": "bal",
+            "profitRate": "profit",
+            "expenseRate": "expense",
+            "profits": [
+                {
+                    "name": "name",
+                    "amount": "amt",
+                    "dateEnacted": "DD-MM-YY"
+                }
+            ],
+            "expenses": [
+                {
+                    "name": "name",
+                    "amount": "amt",
+                    "dateEnacted": "DD-MM-YY"
+                }
+            ]
+        },
+        "events": [
+            {
+                "name": "name",
+                "date": "DD-MM-YY",
+                "allDay": "boolean",
+                "time": {
+                    "start": "HH:MM",
+                    "end": "HH:MM"
+                }
+            }
+        ],
+        "todos": [
+            {
+                "name": "name",
+                "dueDate": "DD-MM-YY",
+                "dueTime": "HH:MM",
+                "progress": "int",
+                "times": [
+                    {
+                        "date": "DD-MM-YY",
+                        "start": "HH:MM",
+                        "end": "HH:MM"
+                    }
+                ]
+            }
+        ],
+        "journalEntries": [
+            {
+                "title": "title",
+                "date": "DD-MM-YY",
+                "entry": "entry"
+            }
+        ],
+        "preferences": {
+            "tintColor": "color"
+        }
+    }
+}
