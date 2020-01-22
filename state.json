@@ -1,6 +1,6 @@
 {
     "state": {
-        "budget" : {
+        "budget": {
             "balance": "bal",
             "profitRate": "profit",
             "expenseRate": "expense",
