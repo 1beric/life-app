@@ -1,5 +1,5 @@
-import * as Actions from '../actions/Actions';
-import Colors from '../constants/Colors';
+import * as Actions from "../actions/Actions";
+import Colors from "../constants/Colors";
 
 const defaultState = {
     budget: {
@@ -13,9 +13,9 @@ const defaultState = {
     todos: [],
     journalEntries: [],
     preferences: {
-        tintColor: Colors.defaultTint
+        color: Colors.defaultTint.tintColor
     }
-}
+};
 
 export default Reducer = (state = defaultState, action) => {
     switch (action.type) {
@@ -38,16 +38,21 @@ export default Reducer = (state = defaultState, action) => {
         case Actions.REMOVE_EVENT:
             return {
                 ...state,
-                events: state.events.filter((event) => {
-                    return !(event.name == action.name && event.date == action.date);
+                events: state.events.filter(event => {
+                    return !(
+                        event.name == action.name && event.date == action.date
+                    );
                 })
             };
         case Actions.CHANGE_EVENT:
             return {
                 ...state,
                 events: [
-                    ...state.events.filter((event) => {
-                        return !(event.name == action.name && event.date == action.date);
+                    ...state.events.filter(event => {
+                        return !(
+                            event.name == action.name &&
+                            event.date == action.date
+                        );
                     }),
                     {
                         name: action.name,
@@ -59,11 +64,21 @@ export default Reducer = (state = defaultState, action) => {
                         }
                     }
                 ]
-            }
+            };
+
+        case Actions.SET_COLOR:
+            console.log(action.color);
+            return {
+                ...state,
+                preferences: {
+                    ...state.preferences,
+                    color: Colors[action.color]
+                }
+            };
         case Actions.ADD_TODO:
-            // TODO
-        
+        // TODO
+
         default:
             return state;
     }
-}
+};

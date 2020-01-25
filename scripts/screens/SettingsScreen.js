@@ -8,41 +8,69 @@ import { setColor } from "../actions/Actions";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 class SettingsScreen extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <ScrollView
                 style={[
                     styles.mainContainer,
                     {
-                        backgroundColor:
-                            Colors[this.props.preferences.tintColor]
-                                .backgroundColor
+                        backgroundColor: this.props.preferences.color
+                            .backgroundColor
                     }
                 ]}
             >
                 <View style={styles.verticalGap} />
                 <ColorLayout
-                    text="Default Color: "
+                    text="Default Color (Blue): "
                     tintColor={Colors.defaultTint.tintColor}
                     setColor={this.props.setColor}
+                    textColor={this.props.preferences.color.textColor}
                 />
                 <View style={styles.verticalSep} />
                 <ColorLayout
-                    text="Reds: "
-                    tintColor={Colors["#ff6060"].tintColor}
+                    text="Teal: "
+                    tintColor={Colors["#60ffaf"].tintColor}
                     setColor={this.props.setColor}
+                    textColor={this.props.preferences.color.textColor}
                 />
                 <View style={styles.verticalSep} />
                 <ColorLayout
-                    text="Greens: "
+                    text="Green: "
                     tintColor={Colors["#60ff60"].tintColor}
                     setColor={this.props.setColor}
+                    textColor={this.props.preferences.color.textColor}
                 />
                 <View style={styles.verticalSep} />
                 <ColorLayout
-                    text="Blues: "
-                    tintColor={Colors["#60dfff"].tintColor}
+                    text="Light Green: "
+                    tintColor={Colors["#cfff60"].tintColor}
                     setColor={this.props.setColor}
+                    textColor={this.props.preferences.color.textColor}
+                />
+                <View style={styles.verticalSep} />
+                <ColorLayout
+                    text="Orange: "
+                    tintColor={Colors["#ffcf60"].tintColor}
+                    setColor={this.props.setColor}
+                    textColor={this.props.preferences.color.textColor}
+                />
+                <View style={styles.verticalSep} />
+                <ColorLayout
+                    text="Red: "
+                    tintColor={Colors["#ff6060"].tintColor}
+                    setColor={this.props.setColor}
+                    textColor={this.props.preferences.color.textColor}
+                />
+                <View style={styles.verticalSep} />
+                <ColorLayout
+                    text="Gray: "
+                    tintColor={Colors["#cccccc"].tintColor}
+                    setColor={this.props.setColor}
+                    textColor={this.props.preferences.color.textColor}
                 />
                 <View style={styles.verticalGap} />
             </ScrollView>
@@ -72,7 +100,12 @@ class ColorLayout extends React.Component {
                     onPress={this.handlePress}
                 />
                 <View style={styles.horizontalGap} />
-                <Text style={styles.label}>
+                <Text
+                    style={{
+                        ...styles.label,
+                        color: this.props.textColor
+                    }}
+                >
                     {this.props.text}
                     {this.props.tintColor}
                 </Text>
@@ -81,13 +114,13 @@ class ColorLayout extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    preferences: state.preferences;
-};
+const mapStateToProps = state => ({
+    preferences: state.preferences
+});
 
-const mapDispatchToProps = dispatch => {
-    setColor: color => dispatch(setColor(color));
-};
+const mapDispatchToProps = dispatch => ({
+    setColor: color => dispatch(setColor(color))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);
 
@@ -118,7 +151,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 20,
-        color: Colors.textColor,
+        color: Colors.defaultTint.textColor,
         fontFamily: "Verdana"
     },
     square: {
