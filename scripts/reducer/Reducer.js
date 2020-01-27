@@ -11,6 +11,7 @@ const defaultState = {
     },
     events: [],
     todos: [],
+    habits: [],
     journalEntries: [],
     preferences: {
         color: Colors.defaultTint.tintColor

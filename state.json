@@ -45,6 +45,18 @@
                 ]
             }
         ],
+        "habits": [
+            {
+                "name": "name",
+                "color": "color",
+                "days": [
+                    {
+                        "date": "DD-MM-YY",
+                        "completed": "boolean"
+                    }
+                ]
+            }
+        ],
         "journalEntries": [
             {
                 "title": "title",
@@ -53,7 +65,9 @@
             }
         ],
         "preferences": {
-            "tintColor": "color"
+            "color": {
+                "...defaultTint": "default"
+            }
         }
     }
 }

@@ -5,24 +5,22 @@ import { createStackNavigator } from "react-navigation-stack";
 
 import TabBarIcon from "../components/TabBarIcon";
 import SettingsScreen from "../screens/SettingsScreen";
-import SetIOScreen from "../screens/SetIOScreen";
-import QueryScreen from "../screens/QueryScreen";
+import BudgetScreen from "../screens/BudgetScreen";
+import HabitScreen from "../screens/HabitScreen";
 import JournalScreen from "../screens/JournalScreen";
-import SummaryScreen from "../screens/SummaryScreen";
+import CalendarScreen from "../screens/CalendarScreen";
 import DynamicTabBar from "../components/DynamicTabBar";
 
 import Colors from "../constants/Colors";
-import { store } from "../store";
-
 
 const config = Platform.select({
     web: { headerMode: "screen" },
     default: {}
 });
 
-const SummaryStack = createStackNavigator(
+const CalendarStack = createStackNavigator(
     {
-        Summary: SummaryScreen
+        Calendar: CalendarScreen
     },
     [
         config,
@@ -33,50 +31,54 @@ const SummaryStack = createStackNavigator(
         }
     ]
 );
-SummaryStack.navigationOptions = {
-    tabBarLabel: "Summary",
+CalendarStack.navigationOptions = {
+    tabBarLabel: "Calendar",
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === "ios" ? "ios-analytics" : "md-analytics"}
+            name={Platform.OS === "ios" ? "ios-calendar" : "md-calendar"}
         />
     )
 };
-SummaryStack.path = "";
+CalendarStack.path = "";
 
-const SetIOStack = createStackNavigator(
+const BudgetStack = createStackNavigator(
     {
-        SetIO: SetIOScreen
+        Budget: BudgetScreen
     },
     config
 );
-SetIOStack.navigationOptions = {
-    tabBarLabel: "SetIO",
+BudgetStack.navigationOptions = {
+    tabBarLabel: "Budget",
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === "ios" ? "ios-add-circle" : "md-add-circle"}
+            name={Platform.OS === "ios" ? "ios-wallet" : "md-wallet"}
         />
     )
 };
-SetIOStack.path = "";
+BudgetStack.path = "";
 
-const QueryStack = createStackNavigator(
+const HabitStack = createStackNavigator(
     {
-        Query: QueryScreen
+        Habit: HabitScreen
     },
     config
 );
-QueryStack.navigationOptions = {
-    tabBarLabel: "Query",
+HabitStack.navigationOptions = {
+    tabBarLabel: "Habit",
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === "ios" ? "ios-search" : "md-search"}
+            name={
+                Platform.OS === "ios"
+                    ? "ios-checkmark-circle"
+                    : "md-checkmark-circle"
+            }
         />
     )
 };
-QueryStack.path = "";
+HabitStack.path = "";
 
 const JournalStack = createStackNavigator(
     {
@@ -89,7 +91,7 @@ JournalStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === "ios" ? "ios-add-circle" : "md-add-circle"}
+            name={Platform.OS === "ios" ? "ios-journal" : "md-journa;"}
         />
     )
 };
@@ -106,7 +108,7 @@ SettingsStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === "ios" ? "ios-settings" : "md-settings"}
+            name={Platform.OS === "ios" ? "ios-cog" : "md-cog"}
         />
     )
 };
@@ -114,10 +116,10 @@ SettingsStack.path = "";
 
 const tabNavigator = createBottomTabNavigator(
     {
-        SummaryStack,
+        CalendarStack,
         JournalStack,
-        QueryStack,
-        SetIOStack,
+        HabitStack,
+        BudgetStack,
         SettingsStack
     },
     {
@@ -129,10 +131,10 @@ const tabNavigator = createBottomTabNavigator(
             },
             style: {
                 borderTopWidth: 1,
-                borderTopColor: "white",
+                borderTopColor: "white"
             }
         },
-        initialRouteName: "SummaryStack",
+        initialRouteName: "CalendarStack",
         tabBarComponent: DynamicTabBar
     }
 );
