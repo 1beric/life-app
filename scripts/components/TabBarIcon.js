@@ -1,15 +1,23 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import Colors from "../constants/Colors";
+import { connect } from "react-redux";
 
-export default function TabBarIcon(props) {
+function TabBarIcon(props) {
     return (
         <Ionicons
             name={props.name}
             size={26}
             style={{ marginBottom: -3 }}
-            color={props.focused ? props.selected : props.selected}
+            color={props.focused ? props.selected : props.unselected}
         />
     );
 }
+
+const mapStateToProps = (state, ownProps) => ({
+    ...ownProps,
+    selected: state.preferences.color.tabIconSelected,
+    unselected: state.preferences.color.tabIconDefault
+});
+
+export default connect(mapStateToProps)(TabBarIcon)

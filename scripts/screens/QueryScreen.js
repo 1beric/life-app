@@ -6,12 +6,16 @@ import {
 import Colors from "../constants/Colors";
 import Layout from "../constants/Layout";
 import { ScrollView } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
 
-export default class QueryScreen extends React.Component {
+class QueryScreen extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
-            <View style={styles.mainContainer}>
+            <View style={{...styles.mainContainer,backgroundColor: this.props.color.backgroundColor}}>
                 <ScrollView style={styles.scrollView}>
 
 
@@ -20,10 +24,7 @@ export default class QueryScreen extends React.Component {
 
                 </ScrollView>
                 <View style={styles.verticalGap} />
-                <View style={styles.circle}>
-
-                </View>
-                
+                <View style={styles.circle} />
                 <View style={styles.verticalGap} />
 
             </View>
@@ -32,13 +33,23 @@ export default class QueryScreen extends React.Component {
 
 }
 
+const mapStateToProps = state => ({
+    color: state.preferences.color
+});
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(QueryScreen);
+
 
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         flexDirection: "column",
         alignItems: "center",
-        backgroundColor: Colors.backgroundColor,
+        backgroundColor: Colors.defaultTint.backgroundColor,
     },
     scrollView:{
         flex: 1,
@@ -49,7 +60,7 @@ const styles = StyleSheet.create({
         height: Layout.window.height * .1,
         borderRadius: Layout.window.height * .1,
         borderColor: "white",
-        borderWidth: 1,
+        borderWidth: 2,
         backgroundColor: Colors.tintColor
     },
     verticalGap: {

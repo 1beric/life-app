@@ -7,13 +7,13 @@ import TabBarIcon from "../components/TabBarIcon";
 import SettingsScreen from "../screens/SettingsScreen";
 import SetIOScreen from "../screens/SetIOScreen";
 import QueryScreen from "../screens/QueryScreen";
-import AddIOScreen from "../screens/AddIOScreen";
+import JournalScreen from "../screens/JournalScreen";
 import SummaryScreen from "../screens/SummaryScreen";
+import DynamicTabBar from "../components/DynamicTabBar";
 
 import Colors from "../constants/Colors";
 import { store } from "../store";
 
-const stateColor = store.getState().preferences.color;
 
 const config = Platform.select({
     web: { headerMode: "screen" },
@@ -39,8 +39,6 @@ SummaryStack.navigationOptions = {
         <TabBarIcon
             focused={focused}
             name={Platform.OS === "ios" ? "ios-analytics" : "md-analytics"}
-            selected={stateColor.tabIconSelected}
-            unselected={stateColor.tabIconDefault}
         />
     )
 };
@@ -80,14 +78,14 @@ QueryStack.navigationOptions = {
 };
 QueryStack.path = "";
 
-const AddIOStack = createStackNavigator(
+const JournalStack = createStackNavigator(
     {
-        AddIO: AddIOScreen
+        Journal: JournalScreen
     },
     config
 );
-AddIOStack.navigationOptions = {
-    tabBarLabel: "AddIO",
+JournalStack.navigationOptions = {
+    tabBarLabel: "Journal",
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
@@ -95,7 +93,7 @@ AddIOStack.navigationOptions = {
         />
     )
 };
-AddIOStack.path = "";
+JournalStack.path = "";
 
 const SettingsStack = createStackNavigator(
     {
@@ -117,27 +115,25 @@ SettingsStack.path = "";
 const tabNavigator = createBottomTabNavigator(
     {
         SummaryStack,
-        AddIOStack,
+        JournalStack,
         QueryStack,
         SetIOStack,
         SettingsStack
     },
     {
         tabBarOptions: {
-            activeTintColor: stateColor.tabIconSelected,
-            inactiveTintColor: stateColor.tabIconDefault,
             labelStyle: {
                 fontSize: 10,
-                fontFamily: "Verdana"
+                fontFamily: "Verdana",
+                color: "white"
             },
             style: {
-                backgroundColor: stateColor.tabBar,
                 borderTopWidth: 1,
-                borderTopColor: "white"
+                borderTopColor: "white",
             }
         },
         initialRouteName: "SummaryStack",
-        headerMode: "none"
+        tabBarComponent: DynamicTabBar
     }
 );
 

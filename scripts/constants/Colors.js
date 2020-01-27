@@ -6,7 +6,7 @@ export default {
         borderColor: "white",
         tabIconDefault: "white",
         tabIconSelected: "#60dfff",
-        tabBar: "#181830"
+        tabBar: "#182430"
     },
     "#60dfff": {
         // also the default
@@ -22,60 +22,55 @@ export default {
         // unchecked
         tintColor: "#ff6060",
         backgroundColor: "#402020",
-        textColor: "white", // unchanged
-        borderColor: "white", // unchanged
-        tabIconDefault: "white", // unchanged
-        tabIconSelected: "#60dfff", // unchanged
-        tabBar: "#181830" // unchanged
+        textColor: "white",
+        borderColor: "white",
+        tabIconDefault: "white",
+        tabIconSelected: "#ff6060",
+        tabBar: "#301818"
     },
     "#60ff60": {
-        // unchecked
         tintColor: "#60ff60",
         backgroundColor: "#204020",
-        textColor: "white", // unchanged
-        borderColor: "white", // unchanged
-        tabIconDefault: "white", // unchanged
-        tabIconSelected: "#60dfff", // unchanged
-        tabBar: "#181830" // unchanged
+        textColor: "white",
+        borderColor: "white",
+        tabIconDefault: "white",
+        tabIconSelected: "#60ff60", 
+        tabBar: "#183018"
     },
     "#cfff60": {
-        // unchecked
         tintColor: "#cfff60",
         backgroundColor: "#304020",
-        textColor: "white", // unchanged
-        borderColor: "white", // unchanged
-        tabIconDefault: "white", // unchanged
-        tabIconSelected: "#60dfff", // unchanged
-        tabBar: "#181830" // unchanged
+        textColor: "white", 
+        borderColor: "white", 
+        tabIconDefault: "white",
+        tabIconSelected: "#cfff60",
+        tabBar: "#243018" 
     },
     "#60ffaf": {
-        // unchecked
         tintColor: "#60ffaf",
         backgroundColor: "#204030",
-        textColor: "white", // unchanged
-        borderColor: "white", // unchanged
-        tabIconDefault: "white", // unchanged
-        tabIconSelected: "#60dfff", // unchanged
-        tabBar: "#181830" // unchanged
+        textColor: "white",
+        borderColor: "white",
+        tabIconDefault: "white", 
+        tabIconSelected: "#60ffaf",
+        tabBar: "#183024"
     },
     "#ffcf60": {
-        // unchecked
         tintColor: "#ffcf60",
         backgroundColor: "#403020",
-        textColor: "white", // unchanged
-        borderColor: "white", // unchanged
-        tabIconDefault: "white", // unchanged
-        tabIconSelected: "#60dfff", // unchanged
-        tabBar: "#181830" // unchanged
+        textColor: "white",
+        borderColor: "white",
+        tabIconDefault: "white",
+        tabIconSelected: "#ffcf60",
+        tabBar: "#302418"
     },
-    "#cccccc": {
-        // unchecked
-        tintColor: "#cccccc",
+    "#aaaaaa": {
+        tintColor: "#aaaaaa",
         backgroundColor: "#404040",
-        textColor: "white", // unchanged
-        borderColor: "white", // unchanged
-        tabIconDefault: "white", // unchanged
-        tabIconSelected: "#cccccc", // unchanged
-        tabBar: "#181818" // unchanged
+        textColor: "white",
+        borderColor: "white",
+        tabIconDefault: "white",
+        tabIconSelected: "#aaaaaa", 
+        tabBar: "#181818"
     }
 };

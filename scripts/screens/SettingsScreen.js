@@ -2,7 +2,7 @@ import React from "react";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
 import Layout from "../constants/Layout";
-import { connect } from "react-redux"; //redux??
+import { connect } from "react-redux"; 
 
 import { setColor } from "../actions/Actions";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -68,7 +68,7 @@ class SettingsScreen extends React.Component {
                 <View style={styles.verticalSep} />
                 <ColorLayout
                     text="Gray: "
-                    tintColor={Colors["#cccccc"].tintColor}
+                    tintColor={Colors["#aaaaaa"].tintColor}
                     setColor={this.props.setColor}
                     textColor={this.props.preferences.color.textColor}
                 />
