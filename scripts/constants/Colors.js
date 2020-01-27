@@ -8,8 +8,7 @@ export default {
         tabIconSelected: "#60dfff",
         tabBar: "#182430"
     },
-    "#60dfff": {
-        // also the default
+    "#60dfff": { //default
         tintColor: "#60dfff",
         backgroundColor: "#202040",
         textColor: "white",
@@ -19,7 +18,6 @@ export default {
         tabBar: "#181830"
     },
     "#ff6060": {
-        // unchecked
         tintColor: "#ff6060",
         backgroundColor: "#402020",
         textColor: "white",
