@@ -67,8 +67,18 @@ export default {
         backgroundColor: "#404040",
         textColor: "white",
         borderColor: "white",
-        tabIconDefault: "white",
-        tabIconSelected: "#aaaaaa", 
+        tabIconDefault: "#aaaaaa",
+        tabIconSelected: "white", 
         tabBar: "#181818"
+    },
+    habitColors: { // used for habits, succint from state
+        red: "#ff4040",
+        blue: "#4040ff",
+        green: "#40dd40",
+        yellow: "#eeee40",
+        orange: "#ff8040",
+        lightBlue: "#40ffff",
+        purple: "#a040ff",
+        pink: "#ff80b0"
     }
 };

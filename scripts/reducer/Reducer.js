@@ -68,7 +68,6 @@ export default Reducer = (state = defaultState, action) => {
             };
 
         case Actions.SET_COLOR:
-            console.log(action.color);
             return {
                 ...state,
                 preferences: {
@@ -76,9 +75,19 @@ export default Reducer = (state = defaultState, action) => {
                     color: Colors[action.color]
                 }
             };
-        case Actions.ADD_TODO:
-        // TODO
-
+        case Actions.ADD_HABIT:
+            console.log(action.name);
+            return {
+                ...state,
+                habits: [
+                    ...state.habits,
+                    {
+                        name: action.name,
+                        color: action.color,
+                        days: []
+                    }
+                ]
+            };
         default:
             return state;
     }

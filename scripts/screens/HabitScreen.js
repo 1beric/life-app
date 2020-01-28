@@ -9,39 +9,167 @@ import {
     changeHabit,
     markHabit
 } from "../actions/Actions";
-import { TouchableOpacity, TextInput } from "react-native-gesture-handler";
+import { TouchableOpacity, TextInput, ScrollView } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
+
 
 class HabitScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { addHabit: false };
-        this.handleAddPress = this.handleAddPress.bind(this);
+        this.state = { 
+            addHabit: false, 
+            nameValue: "", 
+            colorValue: "",
+            selectedHabit: "" 
+        };
+        this.handleAddCancelPress = this.handleAddCancelPress.bind(this);
+        this.handleColorPick = this.handleColorPick.bind(this);
+        this.handleCheckPress = this.handleCheckPress.bind(this);
+        this.handleHabitPress = this.handleHabitPress.bind(this);
     }
 
-    handleAddPress() {
+    handleAddCancelPress() {
         if (this.state.addHabit) {
-            this.setState({ addHabit: false });
+            this.setState({ 
+                addHabit: false, 
+                nameValue: "", 
+                colorValue: ""
+            });
         } else {
             this.setState({ addHabit: true });
         }
     }
 
+    handleCheckPress() {
+        if (this.state.nameValue == "" || this.state.colorValue == "") return;
+        this.props.addHabit(this.state.nameValue, this.state.colorValue);
+        this.setState({ 
+            addHabit: false, 
+            nameValue: "", 
+            colorValue: ""
+        });
+    }
+
+    handleColorPick(color) {
+        this.setState({ colorValue: color });
+    }
+
+    handleHabitPress(name) {
+        this.setState({ selectedHabit: name });
+    }
+
     render() {
         let centerView = <View></View>;
-
         if (this.state.addHabit) {
             centerView = (
-                <View>
+                <View style={{alignItems: "center"}}>
                     <Text style={styles.label}>NAME</Text>
                     <TextInput
                         style={styles.inputBox}
-                        defaultValue="Enter the habit name."
-                        clearTextOnFocus={true}
-                    ></TextInput>
+                        value={this.state.nameValue}
+                        onChangeText={(text)=>this.setState({nameValue: text})}
+                    />
+                    <Text style={styles.label}>COLOR</Text>
+                    <View style={styles.colorPickerView}>
+                        <TouchableOpacity 
+                            style={{ 
+                                ...styles.squarePicker,
+                                backgroundColor: Colors.habitColors.red
+                            }}
+                            onPress={()=>this.handleColorPick(Colors.habitColors.red)}
+                        />
+                        <TouchableOpacity 
+                            style={{ 
+                                ...styles.squarePicker,
+                                backgroundColor: Colors.habitColors.pink
+                            }}
+                            onPress={()=>this.handleColorPick(Colors.habitColors.pink)}
+                        />
+                        <TouchableOpacity 
+                            style={{ 
+                                ...styles.squarePicker,
+                                backgroundColor: Colors.habitColors.purple
+                            }}
+                            onPress={()=>this.handleColorPick(Colors.habitColors.purple)}
+                        />
+                        <TouchableOpacity 
+                            style={{ 
+                                ...styles.squarePicker,
+                                backgroundColor: Colors.habitColors.blue
+                            }}
+                            onPress={()=>this.handleColorPick(Colors.habitColors.blue)}
+                        />
+                        <TouchableOpacity 
+                            style={{ 
+                                ...styles.squarePicker,
+                                backgroundColor: Colors.habitColors.lightBlue
+                            }}
+                            onPress={()=>this.handleColorPick(Colors.habitColors.lightBlue)}
+                        />
+                        <TouchableOpacity 
+                            style={{ 
+                                ...styles.squarePicker,
+                                backgroundColor: Colors.habitColors.green
+                            }}
+                            onPress={()=>this.handleColorPick(Colors.habitColors.green)}
+                        />
+                        <TouchableOpacity 
+                            style={{ 
+                                ...styles.squarePicker,
+                                backgroundColor: Colors.habitColors.yellow
+                            }}
+                            onPress={()=>this.handleColorPick(Colors.habitColors.yellow)}
+                        />
+                        <TouchableOpacity 
+                            style={{ 
+                                ...styles.squarePicker,
+                                backgroundColor: Colors.habitColors.orange
+                            }}
+                            onPress={()=>this.handleColorPick(Colors.habitColors.orange)}
+                        />
+                    </View>
+                    <TouchableOpacity
+                        style={styles.circleButton}
+                        onPress={this.handleCheckPress}
+                    >
+                        <Ionicons
+                            name={"ios-checkmark-circle"}
+                            size={88}
+                            color="white"
+                        />
+                    </TouchableOpacity>
                 </View>
             );
         } else {
-            centerView = <Text>HABITS</Text>;
+            centerView = (
+                <ScrollView style={styles.habitScrollView}>
+                    {this.props.habits.map(
+                        (item,index)=> {
+                            return <ScrollView style={styles.habitRowView} horizontal={true}>
+                                <TouchableOpacity onPress={()=>this.handleHabitPress(item.name)}>
+                                    <Text 
+                                        style={styles.habitLabel}
+                                        key={index}
+                                    >
+                                        {item.name}
+                                    </Text>
+                                </TouchableOpacity>
+                                <View style={{ alignItems: "center", flexDirection: "row", flexWrap: "wrap" }}>
+                                    {item.days.map(
+                                        (day,dayIndex)=> {
+                                            return <View key={dayIndex}>
+                                                <Text style={styles.habitLabel}>{day.date}</Text>
+                                                <View style={{ ...styles.habitSquare, backgroundColor: day.completed ? item.color : "transparent" }} />
+                                            </View>
+                                        }
+                                    )}
+                                </View>
+                                
+                            </ScrollView>
+                        }
+                    )}
+                </ScrollView>
+            );
         }
 
         return (
@@ -51,12 +179,17 @@ class HabitScreen extends React.Component {
                     backgroundColor: this.props.color.backgroundColor
                 }}
             >
+                <Text style={styles.mainLabel}>HABITS</Text>
                 <View style={styles.centerView}>{centerView}</View>
                 <TouchableOpacity
-                    style={styles.circle}
-                    onPress={this.handleAddPress}
+                    style={styles.circleButton}
+                    onPress={this.handleAddCancelPress}
                 >
-                    <Text style={styles.plus}>+</Text>
+                    <Ionicons
+                        name={this.state.addHabit ? "ios-close-circle" : "ios-add-circle"}
+                        size={88}
+                        color="white"
+                    />
                 </TouchableOpacity>
             </View>
         );
@@ -88,46 +221,75 @@ const styles = StyleSheet.create({
     centerView: {
         flex: 1,
         height: Layout.window.height * 0.7,
-        paddingTop: Layout.window.height * 0.02
     },
-    circle: {
+    circleButton: {
         width: Layout.window.height * 0.1,
         height: Layout.window.height * 0.1,
-        borderRadius: Layout.window.height * 0.1,
-        borderColor: "white",
-        borderWidth: 2,
         backgroundColor: "transparent",
         alignItems: "center",
         justifyContent: "center",
         marginVertical: Layout.window.height * 0.05
     },
-    plus: {
-        fontSize: 96,
-        color: "white",
-        fontWeight: "100",
-        transform: [{ translateY: -8 }]
-    },
     inputBox: {
         borderColor: "white",
         borderWidth: 2,
-        width: Layout.window.width * 0.4,
+        width: Layout.window.width * 0.6,
         paddingVertical: 3,
         paddingHorizontal: 5,
+        marginBottom: 20,
         color: "white",
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 24,
+        fontWeight: "300"
+    },
+    mainLabel: {
+        fontSize: 48,
+        fontWeight: "200",
+        color: "white",
+        alignSelf: "center",
+        marginVertical: 10
     },
     label: {
-        fontSize: 24,
-        fontWeight: "100",
+        fontSize: 36,
+        fontWeight: "200",
         color: "white",
-        fontFamily: "Verdana",
         alignSelf: "center",
-        marginBottom: 10
+        marginVertical: 5
     },
-    square: {
+    squarePicker: {
         width: Layout.window.width * 0.15,
         height: Layout.window.width * 0.15,
         borderColor: "white",
         borderWidth: 1
+    },
+    colorPickerView: {
+        flex: 1,
+        flexDirection: "row",
+        width: Layout.window.width * 0.6,
+        flexWrap: "wrap"
+    },
+    habitScrollView: {
+        width: Layout.window.width * 0.9,
+    },
+    habitRowView: {
+        flexDirection: "row",
+        marginVertical: 5
+    },
+    habitLabel: {
+        fontSize: 24,
+        fontWeight: "300",
+        color: "white",
+        alignSelf: "flex-start",
+        width: Layout.window.width * 0.20,
+    },
+    habitSquare: {
+        width: Layout.window.width * 0.1,
+        height: Layout.window.width * 0.1,
+        borderColor: "white",
+        borderWidth: 1
     }
+
+
+
+
 });
