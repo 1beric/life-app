@@ -138,29 +138,29 @@ const styles = StyleSheet.create({
         marginVertical: 5
     },
     squarePicker: {
-        width: Layout.window.width * 0.15,
-        height: Layout.window.width * 0.15,
+        width: Layout.width * 0.15,
+        height: Layout.width * 0.15,
         borderColor: "white",
         borderWidth: 1
     },
     colorPickerView: {
         flex: 1,
         flexDirection: "row",
-        width: Layout.window.width * 0.6,
+        width: Layout.width * 0.6,
         flexWrap: "wrap"
     },
     circleButton: {
-        width: Layout.window.height * 0.1,
-        height: Layout.window.height * 0.1,
+        width: Layout.height * 0.1,
+        height: Layout.height * 0.1,
         backgroundColor: "transparent",
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: Layout.window.height * 0.05
+        marginVertical: Layout.height * 0.05
     },
     inputBox: {
         borderColor: "white",
         borderWidth: 2,
-        width: Layout.window.width * 0.6,
+        width: Layout.width * 0.6,
         paddingVertical: 3,
         paddingHorizontal: 5,
         marginBottom: 20,

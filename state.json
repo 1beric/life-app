@@ -49,12 +49,7 @@
             {
                 "name": "name",
                 "color": "color",
-                "days": [
-                    {
-                        "date": "DD-MM-YY",
-                        "completed": "boolean"
-                    }
-                ]
+                "days": ["DD-MM-YY"]
             }
         ],
         "journalEntries": [

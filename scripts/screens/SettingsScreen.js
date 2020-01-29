@@ -2,7 +2,7 @@ import React from "react";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
 import Layout from "../constants/Layout";
-import { connect } from "react-redux"; 
+import { connect } from "react-redux";
 
 import { setColor } from "../actions/Actions";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -134,18 +134,18 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
-        maxHeight: Layout.window.width * 0.15
+        maxHeight: Layout.width * 0.15
     },
     horizontalGap: {
-        width: Layout.window.width * 0.1
+        width: Layout.width * 0.1
     },
     verticalGap: {
-        height: Layout.window.width * 0.1
+        height: Layout.width * 0.1
     },
     verticalSep: {
-        height: Layout.window.width * 0.05,
-        marginTop: Layout.window.width * 0.05,
-        marginHorizontal: Layout.window.width * 0.075,
+        height: Layout.width * 0.05,
+        marginTop: Layout.width * 0.05,
+        marginHorizontal: Layout.width * 0.075,
         borderTopWidth: 1,
         borderColor: "white"
     },
@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
         fontFamily: "Verdana"
     },
     square: {
-        width: Layout.window.width * 0.15,
-        height: Layout.window.width * 0.15,
+        width: Layout.width * 0.15,
+        height: Layout.width * 0.15,
         borderColor: "white",
         borderWidth: 1
     }

@@ -1,69 +1,53 @@
 import React from "react";
-import { ScrollView } from "react-native-gesture-handler";
-import { thisTypeAnnotation } from "@babel/types";
+import { Text, View, StyleSheet } from "react-native";
+import {
+    ScrollView,
+    RectButton,
+    TouchableOpacity
+} from "react-native-gesture-handler";
+import Layout from "../constants/Layout";
 
 export default class HabitsView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentHabit: "",
-            habitList: [],
-            currentMonth: new Date().getMonth() + 1,
-            currentYear: new Date().getFullYear(),
-            monthsHabits: {}
+            currentHabit: ""
         };
-    }
-
-    setDateNow() {
-        this.setState({
-            currentMonth: new Date().getMonth() + 1,
-            currentYear: new Date().getFullYear()
-        });
-    }
-
-    incrementMonth() {
-        this.setState(
-            this.state.currentMonth == 12
-                ? {
-                      currentMonth: 1,
-                      currentYear: this.state.currentYear + 1
-                  }
-                : {
-                      currentMonth: this.state.currentMonth + 1
-                  }
-        );
-    }
-
-    decrementMonth() {
-        this.setState(
-            this.state.currentMonth == 1
-                ? {
-                      currentMonth: 12,
-                      currentYear: this.state.currentYear - 1
-                  }
-                : {
-                      currentMonth: this.state.currentMonth - 1
-                  }
-        );
-    }
-
-    loadHabits() {
-        const { habits } = this.props.habits;
-        this.setState({
-            habitList: habits.map(element => element.name)
-        });
-        this.setState({});
     }
 
     render() {
         return (
-            <ScrollView
-                style={styles.habitScrollView}
-                horizontal={true}
-            ></ScrollView>
+            <ScrollView style={styles.habitScrollView} horizontal={true}>
+                {/*
+                    add habits with a gap, then loop through days, adding each as a vertical section
+                    */}
+            </ScrollView>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    habitScrollView: {
+        width: Layout.width * 0.9
+    },
+    habitRowView: {
+        flexDirection: "row",
+        marginVertical: 5
+    },
+    habitLabel: {
+        fontSize: 24,
+        fontWeight: "300",
+        color: "white",
+        alignSelf: "flex-start",
+        width: Layout.width * 0.2
+    },
+    habitSquare: {
+        width: Layout.width * 0.1,
+        height: Layout.width * 0.1,
+        borderColor: "white",
+        borderWidth: 1
+    }
+});
 
 /*
 <ScrollView style={styles.habitScrollView}>

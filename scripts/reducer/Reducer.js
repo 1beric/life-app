@@ -84,7 +84,7 @@ export default Reducer = (state = defaultState, action) => {
                     {
                         name: action.name,
                         color: action.color,
-                        days: []
+                        daysCompleted: []
                     }
                 ]
             };

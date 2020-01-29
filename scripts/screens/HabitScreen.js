@@ -12,17 +12,84 @@ import {
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import AddHabitView from "../components/AddHabitView";
+import HabitsView from "../components/HabitsView";
+import { intMonths, monthDays } from "../constants/Months";
 
 class HabitScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             addHabit: false,
-            selectedHabit: ""
+            habitList: [],
+            currentMonth: new Date().getMonth() + 1,
+            currentYear: new Date().getFullYear(),
+            monthsHabits: {}
         };
         this.handleAddCancelPress = this.handleAddCancelPress.bind(this);
         this.addHabitFalse = this.addHabitFalse.bind(this);
         this.handleHabitPress = this.handleHabitPress.bind(this);
+        this.setDateNow = this.setDateNow.bind(this);
+        this.incrementMonth = this.incrementMonth.bind(this);
+        this.decrementMonth = this.decrementMonth.bind(this);
+        this.loadHabits = this.loadHabits.bind(this);
+    }
+
+    setDateNow() {
+        this.setState({
+            currentMonth: new Date().getMonth() + 1,
+            currentYear: new Date().getFullYear()
+        });
+    }
+
+    incrementMonth() {
+        this.setState(
+            this.state.currentMonth == 12
+                ? {
+                      currentMonth: 1,
+                      currentYear: this.state.currentYear + 1
+                  }
+                : {
+                      currentMonth: this.state.currentMonth + 1
+                  }
+        );
+    }
+
+    decrementMonth() {
+        this.setState(
+            this.state.currentMonth == 1
+                ? {
+                      currentMonth: 12,
+                      currentYear: this.state.currentYear - 1
+                  }
+                : {
+                      currentMonth: this.state.currentMonth - 1
+                  }
+        );
+    }
+
+    loadHabits() {
+        const habits = this.props.habits;
+        const month = this.state.currentMonth;
+        const year = this.state.currentYear;
+        let currentMonthsHabits = {};
+        for (
+            let day = 1;
+            day < monthDays(intMonths(this.state.currentMonth));
+            day++
+        ) {
+            currentMonthsHabits[day] = [];
+            habits.forEach(element => {
+                if (
+                    element.daysCompleted.includes(formatDate(day, month, year))
+                ) {
+                    currentMonthsHabits[day].push(element.name);
+                }
+            });
+        }
+        this.setState({
+            habitList: habits.map(element => element.name),
+            monthsHabits: currentMonthsHabits
+        });
     }
 
     handleAddCancelPress() {
@@ -30,6 +97,7 @@ class HabitScreen extends React.Component {
             this.setState({
                 addHabit: false
             });
+            this.loadHabits();
         } else {
             this.setState({ addHabit: true });
         }
@@ -44,18 +112,19 @@ class HabitScreen extends React.Component {
     }
 
     render() {
-        let centerView = <View></View>;
-        if (this.state.addHabit) {
-            centerView = (
-                <AddHabitView
-                    addHabitFalse={this.addHabitFalse}
-                    addHabit={this.props.addHabit}
-                />
-            );
-        } else {
-            centerView = <View />;
-        }
-
+        let centerView = this.state.addHabit ? (
+            <AddHabitView
+                addHabitFalse={this.addHabitFalse}
+                addHabit={this.props.addHabit}
+            />
+        ) : (
+            <HabitsView
+                habitList={this.state.habitList}
+                habitsMonths={this.state.habitsMonths}
+                currentMonth={this.currentMonth}
+                currentYear={this.state.currentYear}
+            />
+        );
         return (
             <View
                 style={{
@@ -84,6 +153,15 @@ class HabitScreen extends React.Component {
     }
 }
 
+const formatDate = (day, month, year) =>
+    twoDigits(day) + "-" + twoDigits(month) + "-" + year;
+
+const twoDigits = number => {
+    let strNum = number + "";
+    if (strNum.length == 1) strNum = "0" + strNum;
+    return strNum;
+};
+
 const mapStateToProps = state => ({
     color: state.preferences.color,
     habits: state.habits
@@ -108,15 +186,15 @@ const styles = StyleSheet.create({
     },
     centerView: {
         flex: 1,
-        height: Layout.window.height * 0.7
+        height: Layout.height * 0.7
     },
     circleButton: {
-        width: Layout.window.height * 0.1,
-        height: Layout.window.height * 0.1,
+        width: Layout.height * 0.1,
+        height: Layout.height * 0.1,
         backgroundColor: "transparent",
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: Layout.window.height * 0.05
+        marginVertical: Layout.height * 0.05
     },
     mainLabel: {
         fontSize: 48,
@@ -131,25 +209,5 @@ const styles = StyleSheet.create({
         color: "white",
         alignSelf: "center",
         marginVertical: 5
-    },
-    habitScrollView: {
-        width: Layout.window.width * 0.9
-    },
-    habitRowView: {
-        flexDirection: "row",
-        marginVertical: 5
-    },
-    habitLabel: {
-        fontSize: 24,
-        fontWeight: "300",
-        color: "white",
-        alignSelf: "flex-start",
-        width: Layout.window.width * 0.2
-    },
-    habitSquare: {
-        width: Layout.window.width * 0.1,
-        height: Layout.window.width * 0.1,
-        borderColor: "white",
-        borderWidth: 1
     }
 });
