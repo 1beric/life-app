@@ -117,6 +117,8 @@ export default Reducer = (state = defaultState, action) => {
 				...state,
 				habits: []
 			};
+		case Actions.OVERRIDE:
+			return action.newState;
 		default:
 			return state;
 	}

@@ -33,6 +33,8 @@ export const CHANGE_HABIT = "change_habit";
 export const MARK_HABIT = "mark_habit";
 export const CLEAR_HABITS = "clear_habits";
 
+export const OVERRIDE = "override";
+
 export const setColor = color => ({
 	type: SET_COLOR,
 	color
@@ -198,4 +200,9 @@ export const markHabit = (name, date) => ({
 	type: MARK_HABIT,
 	name,
 	date
+});
+
+export const overrideState = newState => ({
+	type: OVERRIDE,
+	newState
 });
