@@ -76,7 +76,6 @@ export default Reducer = (state = defaultState, action) => {
 				}
 			};
 		case Actions.ADD_HABIT:
-			console.log(action.name);
 			return {
 				...state,
 				habits: [
@@ -87,6 +86,36 @@ export default Reducer = (state = defaultState, action) => {
 						daysCompleted: []
 					}
 				]
+			};
+		case Actions.REMOVE_HABIT:
+			return {
+				...state,
+				habits: state.habits.filter(habit => {
+					return !(habit.name == action.name);
+				})
+			};
+		case Actions.MARK_HABIT:
+			let newHabits = state.habits.map(habit => {
+				if (habit.name == action.name) {
+					if (habit.daysCompleted.includes(action.date)) {
+						habit.daysCompleted.splice(
+							habit.daysCompleted.indexOf(action.date),
+							1
+						);
+					} else {
+						habit.daysCompleted.push(action.date);
+					}
+				}
+				return habit;
+			});
+			return {
+				...state,
+				habits: newHabits
+			};
+		case Actions.CLEAR_HABITS:
+			return {
+				...state,
+				habits: []
 			};
 		default:
 			return state;

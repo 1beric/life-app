@@ -31,171 +31,171 @@ export const ADD_HABIT = "add_habit";
 export const REMOVE_HABIT = "remove_habit";
 export const CHANGE_HABIT = "change_habit";
 export const MARK_HABIT = "mark_habit";
+export const CLEAR_HABITS = "clear_habits";
 
 export const setColor = color => ({
-    type: SET_COLOR,
-    color
+	type: SET_COLOR,
+	color
 });
 
 export const addEvent = (name, date, allDay, startTime, endTime) => ({
-    type: ADD_EVENT,
-    name,
-    date,
-    allDay,
-    startTime,
-    endTime
+	type: ADD_EVENT,
+	name,
+	date,
+	allDay,
+	startTime,
+	endTime
 });
 
 export const removeEvent = (name, date) => ({
-    type: REMOVE_EVENT,
-    name,
-    date
+	type: REMOVE_EVENT,
+	name,
+	date
 });
 
 export const changeEvent = (name, date, allDay, startTime, endTime) => ({
-    type: CHANGE_EVENT,
-    name,
-    date,
-    allDay,
-    startTime,
-    endTime
+	type: CHANGE_EVENT,
+	name,
+	date,
+	allDay,
+	startTime,
+	endTime
 });
 
 export const addTodo = (name, dueDate, dueTime, progress) => ({
-    type: ADD_TODO,
-    name,
-    dueDate,
-    dueTime,
-    progress,
-    times: []
+	type: ADD_TODO,
+	name,
+	dueDate,
+	dueTime,
+	progress,
+	times: []
 });
 
 export const removeTodo = (name, dueDate) => ({
-    type: REMOVE_TODO,
-    name,
-    dueDate
+	type: REMOVE_TODO,
+	name,
+	dueDate
 });
 
 export const endTodo = (name, dueDate) => ({
-    type: END_TODO,
-    name,
-    dueDate
+	type: END_TODO,
+	name,
+	dueDate
 });
 
 export const changeTodo = (name, dueDate, dueTime, progress) => ({
-    type: CHANGE_TODO,
-    name,
-    dueDate,
-    dueTime,
-    progress
+	type: CHANGE_TODO,
+	name,
+	dueDate,
+	dueTime,
+	progress
 });
 
 export const addTodoTimes = (name, dueDate, date, startTime, endTime) => ({
-    type: ADD_TODO_TIMES,
-    name,
-    dueDate,
-    date,
-    startTime,
-    endTime
+	type: ADD_TODO_TIMES,
+	name,
+	dueDate,
+	date,
+	startTime,
+	endTime
 });
 
 export const removeTodoTimes = (name, dueDate, date, startTime) => ({
-    type: REMOVE_TODO_TIMES,
-    name,
-    dueDate,
-    date,
-    startTime
+	type: REMOVE_TODO_TIMES,
+	name,
+	dueDate,
+	date,
+	startTime
 });
 
 export const changeTodoTimes = (name, dueDate, date, startTime, endTime) => ({
-    type: CHANGE_TODO_TIMES,
-    name,
-    dueDate,
-    date,
-    startTime,
-    endTime
+	type: CHANGE_TODO_TIMES,
+	name,
+	dueDate,
+	date,
+	startTime,
+	endTime
 });
 
 export const addProfit = (name, date, amount) => ({
-    type: ADD_PROFIT,
-    name,
-    date,
-    amount
+	type: ADD_PROFIT,
+	name,
+	date,
+	amount
 });
 
 export const removeProfit = (name, date) => ({
-    type: REMOVE_PROFIT,
-    name,
-    date
+	type: REMOVE_PROFIT,
+	name,
+	date
 });
 
 export const changeProfit = (name, date, amount) => ({
-    type: CHANGE_PROFIT,
-    name,
-    date,
-    amount
+	type: CHANGE_PROFIT,
+	name,
+	date,
+	amount
 });
 
 export const addExpense = (name, date, amount) => ({
-    type: ADD_EXPENSE,
-    name,
-    date,
-    amount
+	type: ADD_EXPENSE,
+	name,
+	date,
+	amount
 });
 
 export const removeExpense = (name, date) => ({
-    type: REMOVE_EXPENSE,
-    name,
-    date
+	type: REMOVE_EXPENSE,
+	name,
+	date
 });
 
 export const changeExpense = (name, date, amount) => ({
-    type: CHANGE_EXPENSE,
-    name,
-    date,
-    amount
+	type: CHANGE_EXPENSE,
+	name,
+	date,
+	amount
 });
 
 export const addJournal = (name, date, entry) => ({
-    type: ADD_JOURNAL,
-    name,
-    date,
-    entry
+	type: ADD_JOURNAL,
+	name,
+	date,
+	entry
 });
 
 export const changeJournal = (name, date, entry) => ({
-    type: CHANGE_JOURNAL,
-    name,
-    date,
-    entry
+	type: CHANGE_JOURNAL,
+	name,
+	date,
+	entry
 });
 
 export const removeJournal = (name, date) => ({
-    type: REMOVE_JOURNAL,
-    name,
-    date
+	type: REMOVE_JOURNAL,
+	name,
+	date
 });
 
 export const addHabit = (name, color) => ({
-    type: ADD_HABIT,
-    name,
-    color
+	type: ADD_HABIT,
+	name,
+	color
 });
 
 export const removeHabit = name => ({
-    type: ADD_HABIT,
-    name
+	type: REMOVE_HABIT,
+	name
 });
 
 export const changeHabit = (name, color) => ({
-    type: ADD_HABIT,
-    name,
-    color
+	type: CHANGE_HABIT,
+	name,
+	color
 });
 
-export const markHabit = (name, date, completed) => ({
-    type: ADD_HABIT,
-    name,
-    date,
-    completed
+export const markHabit = (name, date) => ({
+	type: MARK_HABIT,
+	name,
+	date
 });

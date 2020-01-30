@@ -24,7 +24,8 @@ class HabitScreen extends React.Component {
 			currentMonth: new Date().getMonth() + 1,
 			currentYear: new Date().getFullYear(),
 			monthsHabits: {},
-			currentHabit: ""
+			currentHabit: "",
+			update: false
 		};
 		this.handleAddCancelPress = this.handleAddCancelPress.bind(this);
 		this.addHabitFalse = this.addHabitFalse.bind(this);
@@ -33,6 +34,8 @@ class HabitScreen extends React.Component {
 		this.incrementMonth = this.incrementMonth.bind(this);
 		this.decrementMonth = this.decrementMonth.bind(this);
 		this.loadHabits = this.loadHabits.bind(this);
+		this.markHabit = this.markHabit.bind(this);
+		this.removeHabit = this.removeHabit.bind(this);
 	}
 
 	setDateNow() {
@@ -53,6 +56,7 @@ class HabitScreen extends React.Component {
 						currentMonth: this.state.currentMonth + 1
 				  }
 		);
+		this.setState({ update: true });
 	}
 
 	decrementMonth() {
@@ -66,6 +70,7 @@ class HabitScreen extends React.Component {
 						currentMonth: this.state.currentMonth - 1
 				  }
 		);
+		this.setState({ update: true });
 	}
 
 	loadHabits() {
@@ -89,8 +94,22 @@ class HabitScreen extends React.Component {
 		}
 		this.setState({
 			habitList: habits.map(element => element.name),
+			colorList: habits.map(element => element.color),
 			monthsHabits: currentMonthsHabits
 		});
+	}
+
+	markHabit(habit, day) {
+		this.props.markHabit(
+			habit,
+			formatDate(day, this.state.currentMonth, this.state.currentYear)
+		);
+		this.setState({ update: true });
+	}
+
+	removeHabit(name) {
+		this.props.removeHabit(name);
+		this.setState({ update: true, currentHabit: "" });
 	}
 
 	handleAddCancelPress() {
@@ -98,7 +117,7 @@ class HabitScreen extends React.Component {
 			this.setState({
 				addHabit: false
 			});
-			this.loadHabits();
+			this.setState({ update: true });
 		} else {
 			this.setState({ addHabit: true });
 		}
@@ -106,18 +125,28 @@ class HabitScreen extends React.Component {
 
 	addHabitFalse() {
 		this.setState({ addHabit: false });
-		this.loadHabits();
+		this.setState({ update: true });
 	}
 
 	handleHabitPress(name) {
-		this.setState({ selectedHabit: name });
+		this.setState({ currentHabit: name });
 	}
 
 	componentDidMount() {
 		this.loadHabits();
 	}
 
+	componentDidUpdate() {
+		if (this.state.update) {
+			this.loadHabits();
+			this.setState({ update: false });
+		}
+	}
+
 	render() {
+		if (this.state.update) {
+			return <View />;
+		}
 		let centerView = this.state.addHabit ? (
 			<AddHabitView
 				addHabitFalse={this.addHabitFalse}
@@ -129,6 +158,13 @@ class HabitScreen extends React.Component {
 				monthsHabits={this.state.monthsHabits}
 				currentMonth={this.state.currentMonth}
 				currentYear={this.state.currentYear}
+				markHabit={this.markHabit}
+				colorList={this.state.colorList}
+				habitPress={this.handleHabitPress}
+				removeHabit={this.removeHabit}
+				currentHabit={this.state.currentHabit}
+				incrementMonth={this.incrementMonth}
+				decrementMonth={this.decrementMonth}
 			/>
 		);
 		return (
@@ -177,8 +213,8 @@ const mapDispatchToProps = dispatch => ({
 	addHabit: (name, color) => dispatch(addHabit(name, color)),
 	removeHabit: name => dispatch(removeHabit(name)),
 	changeHabit: (name, color) => dispatch(changeHabit(name, color)),
-	markHabit: (name, date, completed) =>
-		dispatch(markHabit(name, date, completed))
+	markHabit: (name, date) => dispatch(markHabit(name, date)),
+	clearHabits: () => dispatch({ type: "clear_habits" }) // probably wont use
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HabitScreen);

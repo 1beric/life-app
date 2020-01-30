@@ -7,6 +7,7 @@ import {
 } from "react-native-gesture-handler";
 import Layout from "../constants/Layout";
 import { intMonths, monthDays } from "../constants/Months";
+import { Ionicons } from "@expo/vector-icons";
 
 export default class HabitsView extends React.Component {
 	constructor(props) {
@@ -25,14 +26,21 @@ export default class HabitsView extends React.Component {
 			for (let habit = 0; habit < this.props.habitList.length; habit++) {
 				habits.push(
 					<TouchableOpacity
+						key={habit}
 						style={{
 							...styles.habitSquare,
 							backgroundColor: this.props.monthsHabits[
 								day
 							].includes(this.props.habitList[habit])
-								? "white"
+								? this.props.colorList[habit]
 								: "transparent"
 						}}
+						onPress={() =>
+							this.props.markHabit(
+								this.props.habitList[habit],
+								day
+							)
+						}
 					/>
 				);
 			}
@@ -47,35 +55,85 @@ export default class HabitsView extends React.Component {
 		return views;
 	}
 
-	/*
-        add habits with a gap, then loop through days, adding each as a vertical section
-    */
 	render() {
 		return (
-			<View style={styles.mainContainer}>
+			<View>
 				<View
-					style={{
-						...styles.verticalView,
-						width: Layout.width * 0.2,
-						marginTop: Layout.width * 0.1
-					}}
+					style={{ ...styles.horizontalView, alignItems: "center" }}
 				>
-					{this.props.habitList.map((habit, index) => (
-						<Text style={styles.habitLabel} key={index}>
-							{habit}
-						</Text>
-					))}
+					<Text style={styles.label}>
+						{intMonths(this.props.currentMonth) +
+							", " +
+							this.props.currentYear}
+					</Text>
+					<TouchableOpacity
+						onPress={this.props.decrementMonth}
+						style={{ marginLeft: 30, marginRight: 10 }}
+					>
+						<Ionicons
+							name="ios-arrow-dropleft-circle"
+							size={36}
+							color="white"
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={this.props.incrementMonth}>
+						<Ionicons
+							name="ios-arrow-dropright-circle"
+							size={36}
+							color="white"
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => this.props.habitPress("")}
+						style={{ marginLeft: 30 }}
+					>
+						<Ionicons
+							name="ios-close-circle"
+							size={36}
+							color="white"
+						/>
+					</TouchableOpacity>
 				</View>
-				<ScrollView style={styles.habitScrollView} horizontal={true}>
-					{this.getViews()}
-				</ScrollView>
+				<View style={styles.horizontalView}>
+					<View
+						style={{
+							...styles.verticalView,
+							width: Layout.width * 0.2,
+							marginTop: Layout.width * 0.1
+						}}
+					>
+						{this.props.habitList.map((habit, index) => (
+							<TouchableOpacity
+								key={index}
+								onPress={() =>
+									this.props.currentHabit != habit
+										? this.props.habitPress(habit)
+										: this.props.removeHabit(habit)
+								}
+							>
+								<Text style={styles.habitLabel}>
+									{this.props.currentHabit != habit
+										? habit
+										: "Delete?"}
+								</Text>
+							</TouchableOpacity>
+						))}
+					</View>
+					<ScrollView
+						style={styles.habitScrollView}
+						horizontal={true}
+						showsHorizontalScrollIndicator={false}
+					>
+						{this.getViews()}
+					</ScrollView>
+				</View>
 			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	mainContainer: {
+	horizontalView: {
 		flexDirection: "row"
 	},
 	verticalView: {
@@ -106,5 +164,12 @@ const styles = StyleSheet.create({
 		height: Layout.width * 0.1,
 		borderColor: "white",
 		borderWidth: 1
+	},
+	label: {
+		fontSize: 36,
+		fontWeight: "200",
+		color: "white",
+		alignSelf: "center",
+		marginVertical: 5
 	}
 });
