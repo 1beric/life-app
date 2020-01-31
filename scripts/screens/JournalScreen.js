@@ -16,13 +16,16 @@ class JournalScreen extends React.Component {
                     ...styles.mainContainer,
                     backgroundColor: this.props.color.backgroundColor
                 }}
-            ></View>
+            >
+                <Text style={styles.mainLabel}>JOURNAL</Text>
+            </View>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    color: state.preferences.color
+    color: state.preferences.color,
+    journalEntries: state.journalEntries
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,5 +42,19 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         backgroundColor: Colors.defaultTint.backgroundColor
-    }
+    },
+	mainLabel: {
+		fontSize: 48,
+		fontWeight: "200",
+		color: "white",
+		alignSelf: "center",
+		marginVertical: 10
+	},
+	label: {
+		fontSize: 36,
+		fontWeight: "200",
+		color: "white",
+		alignSelf: "center",
+		marginVertical: 5
+	}
 });

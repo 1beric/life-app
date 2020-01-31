@@ -54,7 +54,6 @@
         ],
         "journalEntries": [
             {
-                "title": "title",
                 "date": "DD-MM-YY",
                 "entry": "entry"
             }
