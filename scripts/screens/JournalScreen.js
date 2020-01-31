@@ -2,6 +2,7 @@ import React from "react";
 import { Text, StyleSheet, View } from "react-native";
 import Colors from "../constants/Colors";
 import { connect } from "react-redux";
+import { addJournal, changeJournal, removeJournal } from "../actions/Actions";
 
 class JournalScreen extends React.Component {
     constructor(props) {
@@ -24,7 +25,13 @@ const mapStateToProps = state => ({
     color: state.preferences.color
 });
 
-export default connect(mapStateToProps)(JournalScreen);
+const mapDispatchToProps = dispatch => ({
+    addJournal: (date, entry) => dispatch(addJournal(name,date,entry)),
+    changeJournal: (date, entry) => dispatch(changeJournal(name,date,entry)),
+    removeJournal: (date) => dispatch(removeJournal(name,date))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(JournalScreen);
 
 const styles = StyleSheet.create({
     mainContainer: {

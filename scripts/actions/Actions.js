@@ -159,23 +159,20 @@ export const changeExpense = (name, date, amount) => ({
 	amount
 });
 
-export const addJournal = (name, date, entry) => ({
+export const addJournal = (date, entry) => ({
 	type: ADD_JOURNAL,
-	name,
 	date,
 	entry
 });
 
-export const changeJournal = (name, date, entry) => ({
+export const changeJournal = (date, entry) => ({
 	type: CHANGE_JOURNAL,
-	name,
 	date,
 	entry
 });
 
-export const removeJournal = (name, date) => ({
+export const removeJournal = (date) => ({
 	type: REMOVE_JOURNAL,
-	name,
 	date
 });
 
