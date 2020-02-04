@@ -7,15 +7,17 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import Layout from "../constants/Layout";
 import JournalEntry from "../components/JournalEntry";
 import { Ionicons } from "@expo/vector-icons";
+import AddJournalView from "../components/AddJournalView";
 
 class JournalScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			addJournal: false,
-			update: false
+			addJournal: false
 		};
 		this.handleAddCancelPress = this.handleAddCancelPress.bind(this);
+		this.createEntries = this.createEntries.bind(this);
+		this.addJournal = this.addJournal.bind(this);
 	}
 
 	handleAddCancelPress() {
@@ -23,37 +25,44 @@ class JournalScreen extends React.Component {
 			this.setState({
 				addJournal: false
 			});
-			this.setState({ update: true });
 		} else {
 			this.setState({ addJournal: true });
 		}
 	}
 
+	createEntries() {
+		const entries = this.props.entries;
+		let renderedEntries = [];
+		entries.forEach((element, index) => {
+			renderedEntries.push(
+				<JournalEntry
+					entry={element.entry}
+					date={element.date}
+					tintColor={this.props.color.tintColor}
+					key={index}
+				/>
+			);
+		});
+	}
+
+	addJournal(date, entry) {
+		this.props.addJournal(date, entry);
+		this.setState({
+			addJournal: false
+		});
+	}
+
 	render() {
 		let centerView = this.state.addJournal ? (
-			<View style={styles.scrollView} />
+			<View style={styles.scrollView}>
+				<AddJournalView
+					addJournalFalse={() => this.setState({ addJournal: false })}
+					addJournal={this.addJournal}
+				/>
+			</View>
 		) : (
 			<ScrollView style={styles.scrollView}>
-				<JournalEntry
-					entry="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-					date="01-01-2020"
-					tintColor={this.props.color.tintColor}
-				/>
-				<JournalEntry
-					entry="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-					date="01-01-2020"
-					tintColor={this.props.color.tintColor}
-				/>
-				<JournalEntry
-					entry="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-					date="01-01-2020"
-					tintColor={this.props.color.tintColor}
-				/>
-				<JournalEntry
-					entry="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-					date="01-01-2020"
-					tintColor={this.props.color.tintColor}
-				/>
+				{this.createEntries()}
 			</ScrollView>
 		);
 
@@ -87,13 +96,13 @@ class JournalScreen extends React.Component {
 
 const mapStateToProps = state => ({
 	color: state.preferences.color,
-	journalEntries: state.journalEntries
+	entries: state.journalEntries
 });
 
 const mapDispatchToProps = dispatch => ({
-	addJournal: (date, entry) => dispatch(addJournal(name, date, entry)),
-	changeJournal: (date, entry) => dispatch(changeJournal(name, date, entry)),
-	removeJournal: date => dispatch(removeJournal(name, date))
+	addJournal: (date, entry) => dispatch(addJournal(date, entry)),
+	changeJournal: (date, entry) => dispatch(changeJournal(date, entry)),
+	removeJournal: date => dispatch(removeJournal(date))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JournalScreen);

@@ -117,6 +117,17 @@ export default Reducer = (state = defaultState, action) => {
 				...state,
 				habits: []
 			};
+		case Actions.ADD_JOURNAL:
+			return {
+				...state,
+				journalEntries: [
+					...state.journalEntries,
+					{
+						date: action.date,
+						entry: action.entry
+					}
+				]
+			};
 		case Actions.OVERRIDE:
 			return action.newState;
 		default:
